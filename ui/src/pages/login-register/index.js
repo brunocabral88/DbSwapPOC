@@ -106,8 +106,8 @@ const Login = ({ isRegistration }) => {
         </RegisterButtonArea>
 
         {errors.length > 0 && 
-          <ErrorMessagesArea className="alert alert-danger">
-          {errors.map((err, key) => <ErrorItem key={key}>{err.description}</ErrorItem> )}
+          <ErrorMessagesArea>
+            {errors.map((err, key) => <ErrorItem key={key}>{err.description}</ErrorItem> )}
           </ErrorMessagesArea>
         }
 

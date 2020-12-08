@@ -51,7 +51,11 @@ export const RegisterButton = styled.a`
   cursor: pointer;
 `;
 
-export const ErrorMessagesArea = styled.div`
+const InnerErrorMessageArea = styled.div`
   margin-top: 15px;
-`;
+`; 
+
+export const ErrorMessagesArea = ({ children }) => 
+  <InnerErrorMessageArea className="alert alert-danger"> {children} </InnerErrorMessageArea>
+
 export const ErrorItem = styled.li``;
