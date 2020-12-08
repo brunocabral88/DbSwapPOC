@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Text;
 using System;
 using Microsoft.AspNetCore.Builder;
@@ -13,12 +14,14 @@ using DbSwapPOC.API.Settings;
 using DbSwapPOC.API.Contexts;
 using DbSwapPOC.API.Models;
 using DbSwapPOC.API.Services;
+using Microsoft.AspNetCore.Cors.Infrastructure;
+using DbSwapPOC.API.Repositories;
 
 namespace DbSwapPOC.API
 {
     public class Startup
     {
-        private string JWT_SIGNING_KEY; 
+        private string JWT_SIGNING_KEY;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -40,6 +43,8 @@ namespace DbSwapPOC.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DbSwapPOC.API", Version = "v1" });
             });
 
+            /* CORS */
+            services.AddCors();
             
             /* Authentication */
             services.AddDbContext<IdentityContext>();
@@ -68,13 +73,20 @@ namespace DbSwapPOC.API
                 };
             });
 
+            services.AddDbContext<Contexts.AppContext>();
 
             services.AddTransient<AuthService>();
+            services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+            services.AddTransient<IDepartmentRepository, DepartmentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(options => {
+                options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+            });
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

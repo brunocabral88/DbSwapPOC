@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DbSwapPOC.API.DTOs;
 using DbSwapPOC.API.Models;
 using DbSwapPOC.API.Services;
+using DbSwapPOC.API.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -16,7 +17,6 @@ namespace DbSwapPOC.API.Controllers
   public class AuthController : ControllerBase
   {
     private readonly ILogger<AuthController> logger;
-    private readonly UserManager<User> userManager;
     private readonly IServiceProvider serviceProvider;
 
     public AuthController(ILogger<AuthController> logger, IServiceProvider serviceProvider)
@@ -56,15 +56,15 @@ namespace DbSwapPOC.API.Controllers
 
       if (!ModelState.IsValid)
       {
-        return BadRequest(new { errors = "Username or password not provided" });
+        return BadRequest(new ApiError("Username or password not provided"));
       }
 
       var authService = (AuthService) serviceProvider.GetService(typeof(AuthService));
-      var user = await authService.AuthenticateAsync(model.Username, model.Password);
+      var user = await authService.AuthenticateAsync(model.Email, model.Password);
 
       if (user == null)
       {
-        return BadRequest(new { errors = "Username or password incorrect" });
+        return BadRequest(new ApiError("Username or password incorrect"));
       }
 
       var token = TokenService.CreateToken(user);
