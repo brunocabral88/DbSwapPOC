@@ -11,8 +11,8 @@ import {
 
 const columns = [
   { name: 'departmentID', header: 'ID', defaultFlex: 1 },
-  { name: 'name', header: 'Name', defaultFlex: 2 },
-  { name: 'groupName', header: 'Group', defaultFlex: 2 },
+  { name: 'name', header: 'Name', defaultFlex: 4 },
+  { name: 'groupName', header: 'Group', defaultFlex: 3 },
   { name: 'modifiedDate', header: 'Modified', defaultFlex: 2 },
 ]
 
@@ -41,12 +41,11 @@ export default () => {
       <GridContainer>
         {departments && departments.length > 0 && 
           <ReactDataGrid 
-            columns={columns} 
+            columns={columns}
             dataSource={departments}
             style={{ minHeight: 500 }}
             pagination="local" />}
-      </GridContainer>
-      
+      </GridContainer>      
     </Container>
   )
 

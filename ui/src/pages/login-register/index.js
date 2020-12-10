@@ -32,7 +32,7 @@ const Login = ({ isRegistration }) => {
 
   useEffect(() => {
     if (loggedIn) {
-      history.push('/home');
+      history.push('/departments');
     }
   }, [loggedIn, history]);
 
@@ -59,7 +59,7 @@ const Login = ({ isRegistration }) => {
     setLoading(false);
     if (success) {
       setLoggedIn(true);
-      return history.push('/home');
+      return history.push('/departments');
     }
 
     setErrrors(errors);

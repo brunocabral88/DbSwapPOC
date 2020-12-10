@@ -6,12 +6,12 @@ import {
 } from 'react-router-dom';
 
 import LoginRegister from './pages/login-register';
-import Home from './pages/home';
 import Departments from './pages/departments';
 import Employees from './pages/employees';
 import AuthService from './services/AuthService';
 import NavMenu from './components/NavMenu';
 import AuthContext from './contexts/AuthContext';
+import GuardedComponent from './components/GuardedComponent';
 
 function App() {
 
@@ -30,21 +30,13 @@ function App() {
         }
         <div>
           <Switch>
-            {loggedIn &&
-              <>
-                <Route path="/home">
-                  <Home />
-                </Route>
+            <Route path="/employees">
+              <GuardedComponent component={Employees} />
+            </Route>
 
-                <Route path="/employees">
-                  <Employees />
-                </Route>
-
-                <Route path="/departments">
-                  <Departments />
-                </Route>
-              </>
-            }
+            <Route path="/departments">
+              <GuardedComponent component={Departments} />
+            </Route>
 
             <Route path="/login">
               <LoginRegister />
