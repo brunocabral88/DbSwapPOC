@@ -11,11 +11,13 @@ import Employees from './pages/employees';
 import AuthService from './services/AuthService';
 import NavMenu from './components/NavMenu';
 import AuthContext from './contexts/AuthContext';
+import DbTypeContext from './contexts/DbTypeContext';
 import GuardedComponent from './components/GuardedComponent';
 
 function App() {
 
   const [loggedIn, setLoggedIn] = useState(false);
+  const [currentDbType, setCurrentDbType] = useState();
 
   useEffect(() => {
     setLoggedIn(AuthService.isLoggedIn());
@@ -23,35 +25,37 @@ function App() {
 
   return (
     <AuthContext.Provider value={{ loggedIn, setLoggedIn }}>
-      <Router>
-        {loggedIn ?
-          <NavMenu /> :
-          <></>
-        }
-        <div>
-          <Switch>
-            <Route path="/employees">
-              <GuardedComponent component={Employees} />
-            </Route>
+      <DbTypeContext.Provider value={{ currentDbType, setCurrentDbType }}>
+        <Router>
+          {loggedIn ?
+            <NavMenu /> :
+            <></>
+          }
+          <div>
+            <Switch>
+              <Route path="/employees">
+                <GuardedComponent component={Employees} />
+              </Route>
 
-            <Route path="/departments">
-              <GuardedComponent component={Departments} />
-            </Route>
+              <Route path="/departments">
+                <GuardedComponent component={Departments} />
+              </Route>
 
-            <Route path="/login">
-              <LoginRegister />
-            </Route>
+              <Route path="/login">
+                <LoginRegister />
+              </Route>
 
-            <Route path="/register">
-              <LoginRegister isRegistration />
-            </Route>
+              <Route path="/register">
+                <LoginRegister isRegistration />
+              </Route>
 
-            <Route path="/">
-              <LoginRegister />
-            </Route>
-          </Switch>
-        </div>
-      </Router>
+              <Route path="/">
+                <LoginRegister />
+              </Route>
+            </Switch>
+          </div>
+        </Router>
+      </DbTypeContext.Provider>
     </AuthContext.Provider>
   );
 }

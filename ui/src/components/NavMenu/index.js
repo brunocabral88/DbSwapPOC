@@ -9,17 +9,20 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import AuthService from '../../services/AuthService';
 import AuthContext from '../../contexts/AuthContext';
+import DbTypeContext from '../../contexts/DbTypeContext';
 
 const NavMenu = () => {
 
   const history = useHistory();
   const { setLoggedIn } = useContext(AuthContext);
+  const { setCurrentDbType: contextSetCurrentDbType } = useContext(DbTypeContext);
   const [databaseType, setDatabaseType] = useState('SQL_SERVER');
 
   const handleChangeDatabaseType = async (dbType) => {
     if (window.confirm(`Change database to ${dbType}?`)) {
       await DbTypeService.setDatabaseType(dbType);
       setDatabaseType(dbType);
+      contextSetCurrentDbType(dbType);
     }
   }
 

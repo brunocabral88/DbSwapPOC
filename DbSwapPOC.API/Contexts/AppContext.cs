@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using DbSwapPOC.API.Models;
 using DbSwapPOC.API.Settings;
 using Microsoft.EntityFrameworkCore;
@@ -28,8 +27,8 @@ namespace DbSwapPOC.API.Contexts
                     optionsBuilder.UseSqlServer(configuration.GetConnectionString("SqlConnection"));
                     break;
                 case SupportedDatabases.POSTGRES:
-                    /* CHANGE TO POSTGRES */
-                    throw new NotImplementedException("");
+                    optionsBuilder.UseNpgsql(configuration.GetConnectionString("PostgresConnection"));
+                    break;
                 default:
                     break;
             }

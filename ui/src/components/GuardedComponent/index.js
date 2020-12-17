@@ -4,11 +4,11 @@ import AuthContext from '../../contexts/AuthContext';
 
 
 const GuardedComponent = (props) => {
-  const { isLoggedIn } = useContext(AuthContext);
+  const { loggedIn } = useContext(AuthContext);
   const { component: Component } = props;
 
   return (
-    isLoggedIn ?
+    loggedIn ?
       <Component {...props} />
       :
       <Redirect to="/login" />

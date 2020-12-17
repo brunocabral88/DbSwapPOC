@@ -1,7 +1,6 @@
 using System;
 using DbSwapPOC.API.Models;
 using DbSwapPOC.API.Settings;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +14,7 @@ namespace DbSwapPOC.API.Contexts
         public IdentityContext(IConfiguration configuration)
         {
             this.configuration = configuration;
+            Database.Migrate();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -25,7 +25,7 @@ namespace DbSwapPOC.API.Contexts
                     break;
                 case SupportedDatabases.POSTGRES:
                     /* CHANGE TO POSTGRES */
-                    throw new NotImplementedException("");
+                    optionsBuilder.UseNpgsql(configuration.GetConnectionString("PostgresConnection"));
                     break;
                 default:
                     break;

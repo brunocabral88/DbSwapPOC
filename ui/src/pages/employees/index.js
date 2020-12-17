@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ReactDataGrid from '@inovua/reactdatagrid-community';
 import '@inovua/reactdatagrid-community/index.css';
 
@@ -7,7 +7,10 @@ import {
   Container,
   HeaderTitle,
   GridContainer,
+  HeaderArea,
+  RefreshButton,
 } from './styles';
+import DbTypeContext from '../../contexts/DbTypeContext';
 
 const columns = [
   { name: 'businessEntityID', header: 'ID', defaultFlex: 1 },
@@ -19,10 +22,11 @@ const columns = [
   { name: 'hireDate', header: 'Hire Date', defaultFlex: 2 },
 ];
 
-export default () => {
+const Employees = () => {
 
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { currentDbType } = useContext(DbTypeContext);
 
   const loadEmployees = async () => {
     setLoading(true);
@@ -40,16 +44,23 @@ export default () => {
 
   useEffect(() => {
     loadEmployees();
+  }, [currentDbType]);
+
+  useEffect(() => {
+    loadEmployees();
   }, []);
 
   return (
     <Container>
-      <HeaderTitle>Employees</HeaderTitle>
+      <HeaderArea>
+        <HeaderTitle>Employees</HeaderTitle>
+        <RefreshButton onClick={loadEmployees} />
+      </HeaderArea>
 
-      {loading && <h6>Loading...</h6>}
 
       <GridContainer>
-        {employees && employees.length > 0 && 
+        {loading && <h6>Loading...</h6>}
+        {!loading && employees && employees.length > 0 && 
           <ReactDataGrid 
             columns={columns}
             dataSource={employees}
@@ -61,3 +72,5 @@ export default () => {
   )
 
 }
+
+export default Employees;
