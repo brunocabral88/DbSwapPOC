@@ -20,16 +20,19 @@ const authenticate = async (email, password) => {
     return { success: true };
 
   } catch (e) {
-    const errors = e.response.data.errors;
-    console.log(e.response);
-    return { success: false, errors};
+    if (e.response.status < 500) {
+      const errors = e.response.data.errors;
+      return { success: false, errors };
+    } else {
+      return { sucess: false, errors: [{ description: 'An error has occurred, please try again later'}] }
+    }
   }
 };
 
 const register = async (email, password) => {
-
+  let response;
   try {
-    const response = await API.post('/auth/register', { email, password });
+    response = await API.post('/auth/register', { email, password });
 
     const { token } = response.data;
 
@@ -37,8 +40,12 @@ const register = async (email, password) => {
     return { success: true };
     
   } catch (e) {
-    const errors = e.response.data.errors;
-    return { success: false, errors };
+    if (e.response.status < 500) {
+      const errors = e.response.data.errors;
+      return { success: false, errors };
+    } else {
+      return { sucess: false, errors: [{ description: 'An error has occurred, please try again later'}] }
+    }
   }
   
 }
