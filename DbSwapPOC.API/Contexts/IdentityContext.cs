@@ -14,7 +14,6 @@ namespace DbSwapPOC.API.Contexts
         public IdentityContext(IConfiguration configuration)
         {
             this.configuration = configuration;
-            Database.Migrate();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -24,12 +23,13 @@ namespace DbSwapPOC.API.Contexts
                     optionsBuilder.UseSqlServer(configuration.GetConnectionString("SqlConnection"));
                     break;
                 case SupportedDatabases.POSTGRES:
-                    /* CHANGE TO POSTGRES */
                     optionsBuilder.UseNpgsql(configuration.GetConnectionString("PostgresConnection"));
                     break;
                 default:
                     break;
             }
+
+            base.OnConfiguring(optionsBuilder);
         }
 
     }
