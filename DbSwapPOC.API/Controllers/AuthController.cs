@@ -17,35 +17,35 @@ namespace DbSwapPOC.API.Controllers
   public class AuthController : ControllerBase
   {
     private readonly ILogger<AuthController> logger;
-    private readonly IServiceProvider serviceProvider;
+    private readonly AuthService authService;
 
-    public AuthController(ILogger<AuthController> logger, IServiceProvider serviceProvider)
+    public AuthController(ILogger<AuthController> logger, AuthService authService)
     {
-      this.serviceProvider = serviceProvider;
+      this.authService = authService;
       this.logger = logger;
     }
 
     [HttpPost]
     [Route("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterDTO model) 
+    public async Task<IActionResult> Register([FromBody] RegisterDTO model)
     {
-        if (!ModelState.IsValid) 
-        {
-            return BadRequest(new { errors = "Invalid data entered. Please check email and password values provided" });
-        }
+      if (!ModelState.IsValid)
+      {
+        return BadRequest(new { errors = "Invalid data entered. Please check email and password values provided" });
+      }
 
-        var authService = (AuthService) serviceProvider.GetService(typeof(AuthService));
-        var user = new User { Email = model.Email.ToLower(), UserName = model.Email.ToLower() };
+      var user = new User { Email = model.Email.ToLower(), UserName = model.Email.ToLower() };
 
-        var result = await authService.CreateUserAsync(user, model.Password);
+      var result = await authService.CreateUserAsync(user, model.Password);
 
-        if (result.Errors.Any()) {
-            return BadRequest(new { errors = result.Errors.ToArray() });
-        }
+      if (result.Errors.Any())
+      {
+        return BadRequest(new { errors = result.Errors.ToArray() });
+      }
 
-        var token = TokenService.CreateToken(user);
+      var token = TokenService.CreateToken(user);
 
-        return Ok(new { token });
+      return Ok(new { token });
 
     }
 
@@ -59,7 +59,6 @@ namespace DbSwapPOC.API.Controllers
         return BadRequest(new ApiError("Username or password not provided"));
       }
 
-      var authService = (AuthService) serviceProvider.GetService(typeof(AuthService));
       var user = await authService.AuthenticateAsync(model.Email, model.Password);
 
       if (user == null)
