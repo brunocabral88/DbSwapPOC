@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import {
   Container,
+  LogoArea,
   TitleArea,
   Title,
   SubTitle,
@@ -15,6 +16,7 @@ import {
   ErrorMessagesArea,
   ErrorItem,
 } from './styles';
+import logo from '../../assets/logo.png';
 
 import FormContainer from '../../components/FormContainer';
 import AuthService from '../../services/AuthService';
@@ -66,14 +68,20 @@ const Login = ({ isRegistration }) => {
   }
 
   const toggleRegisterLoginPages = () => {
+    setErrrors([]);
+
     if (isRegistration) history.push('/login');
     else history.push('/register');
   }
 
   return (
-    <Container fluid style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <Container>
       <FormContainer onSubmit={handleSubmitClick}>
         
+        <LogoArea>
+          <img src={logo} height="40" />
+        </LogoArea>
+
         <TitleArea>
           <Title>{isRegistration ? 'Registration' : 'Login'}</Title>
           <SubTitle>{ isRegistration ? 'Please register your account' : 'Please enter your existing credentials'}</SubTitle>
@@ -96,7 +104,7 @@ const Login = ({ isRegistration }) => {
 
         </InputArea>
 
-        <SubmitButton type="submit" className="btn btn-primary" disabled={loading}>
+        <SubmitButton type="submit" className="btn" disabled={loading}>
           {isRegistration ? 'REGISTER' : 'LOGIN' }
         </SubmitButton>
         <RegisterButtonArea>

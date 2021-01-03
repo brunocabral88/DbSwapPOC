@@ -2,16 +2,10 @@ import axios from 'axios';
 import Settings from '../AppSettings';
 
 const getAllAsync = async () => {
+  const response = await axios.get(`${Settings.API_URL}/department`);
+  const { data } = response;
 
-  try {
-    const response = await axios.get(`${Settings.API_URL}/department`);
-    const { data } = response;
-
-    return data;
-
-  } catch (e) {
-    console.log(e);
-  }
+  return data;
 }
 
 const DepartmentService = {

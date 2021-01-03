@@ -5,10 +5,12 @@ import DbTypeService from '../../services/DbTypeService';
 
 import {
   StyledNavbar,
+  StyledText,
 } from './styles';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import logo from '../../assets/logo.png';
 
 import AuthService from '../../services/AuthService';
 import AuthContext from '../../contexts/AuthContext';
@@ -35,17 +37,26 @@ const NavMenu = () => {
     history.push('/');
   }
 
+  const textColor = '#ddd';
+
   return (
     <StyledNavbar expand="lg">
-      <Navbar.Brand href="/">DB Migration</Navbar.Brand>
+      <Navbar.Brand href="/" style={{ color: textColor }}>
+        <img src={logo} height="35" />
+        <span style={{ marginLeft: 10 }}>DB Migration</span>
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav pull-right">
         <Nav className="mr-auto">
-          <Nav.Link onClick={() => history.push('/departments')}>Departments</Nav.Link>
-          <Nav.Link onClick={() => history.push('/employees')}>Employees</Nav.Link>
+          <Nav.Link 
+            onClick={() => history.push('/departments')}
+            style={{ color: textColor }}>Departments</Nav.Link>
+          <Nav.Link 
+            onClick={() => history.push('/employees')}
+            style={{ color: textColor }}>Employees</Nav.Link>
         </Nav>
         <Nav>
-          <NavDropdown title="Databases" id="basic-nav-dropdown">
+          <NavDropdown title={<StyledText>Databases</StyledText>} id="basic-nav-dropdown">
             <NavDropdown.Item 
               active={databaseType === 'SQL_SERVER'} 
               href="#" 
@@ -61,8 +72,7 @@ const NavMenu = () => {
           </NavDropdown>
         </Nav>
         <Nav>
-          <NavDropdown title="Menu" id="basic-nav-dropdown">
-            {/* <NavDropdown.Divider /> */}
+          <NavDropdown title={<StyledText>Menu</StyledText>} id="basic-nav-dropdown">
             <NavDropdown.Item href="#" onClick={handleLogout}>Logout</NavDropdown.Item>
           </NavDropdown>
         </Nav>

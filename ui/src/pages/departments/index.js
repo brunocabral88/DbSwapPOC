@@ -8,8 +8,9 @@ import {
   HeaderArea,
   DepartmentsTitle as HeaderTitle,
   GridContainer,
-  RefreshButton,
 } from './styles';
+import RefreshButton from '../../components/RefreshButton';
+import ErrorMessage from '../../components/ErrorMessage';
 import { useContext } from 'react';
 import DbTypeContext from '../../contexts/DbTypeContext';
 
@@ -23,14 +24,23 @@ const columns = [
 const Departments = () => {
 
   const [departments, setDepartments] = useState([]);
+  const [hasErrors, setHasErrors] = useState(false);
   const [loading, setLoading] = useState(true);
   const { currentDbType } = useContext(DbTypeContext);
 
   const loadDepartments = async () => {
+    setDepartments([]);
+    setHasErrors(false);
     setLoading(true);
-    const depts = await DepartmentService.getAllAsync();
-    console.log('depts', depts);
-    setDepartments(depts);
+
+    try {
+      const depts = await DepartmentService.getAllAsync();
+      setDepartments(depts);  
+    } catch (e) {
+      console.error(e);
+      setHasErrors(true);
+    }
+
     setLoading(false);
   };
 
@@ -50,6 +60,7 @@ const Departments = () => {
       </HeaderArea>
       
       <GridContainer>
+        {hasErrors && <ErrorMessage onRefresh={loadDepartments} />}
         {loading && <h6>Loading</h6>}
         {!loading && departments && departments.length > 0 && 
             <ReactDataGrid 

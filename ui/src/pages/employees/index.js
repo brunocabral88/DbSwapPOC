@@ -8,8 +8,9 @@ import {
   HeaderTitle,
   GridContainer,
   HeaderArea,
-  RefreshButton,
 } from './styles';
+import ErrorMessage from '../../components/ErrorMessage';
+import RefreshButton from '../../components/RefreshButton';
 import DbTypeContext from '../../contexts/DbTypeContext';
 
 const columns = [
@@ -25,21 +26,24 @@ const columns = [
 const Employees = () => {
 
   const [employees, setEmployees] = useState([]);
+  const [hasErrors, setHasErrors] = useState(false);
   const [loading, setLoading] = useState(true);
   const { currentDbType } = useContext(DbTypeContext);
 
   const loadEmployees = async () => {
     setLoading(true);
+    setHasErrors(false);
+    setEmployees([]);
 
     try {
       const data = await EmployeeService.getAllEmployeesAsync();
       setEmployees(data);
     } catch (e) {
       console.error(e);
+      setHasErrors(true);
     }
 
-    setLoading(false);
-    
+    setLoading(false);    
   }
 
   useEffect(() => {
@@ -57,8 +61,8 @@ const Employees = () => {
         <RefreshButton onClick={loadEmployees} />
       </HeaderArea>
 
-
       <GridContainer>
+        {hasErrors && <ErrorMessage onRefresh={loadEmployees} />}
         {loading && <h6>Loading...</h6>}
         {!loading && employees && employees.length > 0 && 
           <ReactDataGrid 
