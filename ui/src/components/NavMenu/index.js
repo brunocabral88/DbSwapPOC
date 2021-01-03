@@ -3,6 +3,9 @@ import { useHistory } from 'react-router-dom';
 
 import DbTypeService from '../../services/DbTypeService';
 
+import {
+  StyledNavbar,
+} from './styles';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -33,8 +36,8 @@ const NavMenu = () => {
   }
 
   return (
-    <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="/">DbSwapPOC</Navbar.Brand>
+    <StyledNavbar expand="lg">
+      <Navbar.Brand href="/">DB Migration</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav pull-right">
         <Nav className="mr-auto">
@@ -64,7 +67,7 @@ const NavMenu = () => {
           </NavDropdown>
         </Nav>
       </Navbar.Collapse>
-    </Navbar>
+    </StyledNavbar>
   )
 }
 
