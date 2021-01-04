@@ -2,7 +2,10 @@ namespace DbSwapPOC.API.Settings
 {
     public static class AppSettings
     {
-        public static SupportedDatabases CurrentDatabase = SupportedDatabases.SQL_SERVER;
+        public static SupportedDatabases CurrentDatabaseType = SupportedDatabases.SQL_SERVER;
+        public static string CurrentDatabaseServer = "";
+        public static string CurrentDatabaseName = "";
+
         public static string JWT_SIGNING_KEY;
     }
 

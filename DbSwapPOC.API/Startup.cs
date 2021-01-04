@@ -1,4 +1,3 @@
-using System.Collections.Immutable;
 using System.Text;
 using System;
 using Microsoft.AspNetCore.Builder;
@@ -14,8 +13,8 @@ using DbSwapPOC.API.Settings;
 using DbSwapPOC.API.Contexts;
 using DbSwapPOC.API.Models;
 using DbSwapPOC.API.Services;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using DbSwapPOC.API.Repositories;
+using DbSwapPOC.API.Extensions;
 
 namespace DbSwapPOC.API
 {
@@ -83,6 +82,9 @@ namespace DbSwapPOC.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            /* Set static database settings */
+            app.UseDatabaseDefaults(Configuration);
+
             app.UseCors(options => {
                 options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
             });

@@ -79,7 +79,7 @@ const Login = ({ isRegistration }) => {
       <FormContainer onSubmit={handleSubmitClick}>
         
         <LogoArea>
-          <img src={logo} height="40" />
+          <img src={logo} alt="logo" height="40" />
         </LogoArea>
 
         <TitleArea>

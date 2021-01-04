@@ -11,13 +11,18 @@ import Employees from './pages/employees';
 import AuthService from './services/AuthService';
 import NavMenu from './components/NavMenu';
 import AuthContext from './contexts/AuthContext';
-import DbTypeContext from './contexts/DbTypeContext';
+import DbSettingsContext from './contexts/DbSettingsContext';
 import GuardedComponent from './components/GuardedComponent';
 
-function App() {
+const defaultDbValues = { 
+  dbType: 'SQL_SERVER',
+  dbServer: '',
+  dbName: '',
+}
 
+function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [currentDbType, setCurrentDbType] = useState();
+  const [dbOptions, setDbOptions] = useState(defaultDbValues);
 
   useEffect(() => {
     setLoggedIn(AuthService.isLoggedIn());
@@ -25,7 +30,7 @@ function App() {
 
   return (
     <AuthContext.Provider value={{ loggedIn, setLoggedIn }}>
-      <DbTypeContext.Provider value={{ currentDbType, setCurrentDbType }}>
+      <DbSettingsContext.Provider value={{ dbOptions, setDbOptions }}>
         <Router>
           {loggedIn ?
             <NavMenu /> :
@@ -55,7 +60,7 @@ function App() {
             </Switch>
           </div>
         </Router>
-      </DbTypeContext.Provider>
+      </DbSettingsContext.Provider>
     </AuthContext.Provider>
   );
 }

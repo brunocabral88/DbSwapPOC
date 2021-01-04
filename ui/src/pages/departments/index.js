@@ -12,7 +12,7 @@ import {
 import RefreshButton from '../../components/RefreshButton';
 import ErrorMessage from '../../components/ErrorMessage';
 import { useContext } from 'react';
-import DbTypeContext from '../../contexts/DbTypeContext';
+import DbSettingsContext from '../../contexts/DbSettingsContext';
 
 const columns = [
   { name: 'departmentID', header: 'ID', defaultFlex: 1 },
@@ -26,7 +26,7 @@ const Departments = () => {
   const [departments, setDepartments] = useState([]);
   const [hasErrors, setHasErrors] = useState(false);
   const [loading, setLoading] = useState(true);
-  const { currentDbType } = useContext(DbTypeContext);
+  const { dbOptions } = useContext(DbSettingsContext);
 
   const loadDepartments = async () => {
     setDepartments([]);
@@ -50,7 +50,7 @@ const Departments = () => {
 
   useEffect(() => {
     loadDepartments();
-  }, [currentDbType]);
+  }, [dbOptions]);
 
   return (
     <Container>
@@ -69,8 +69,6 @@ const Departments = () => {
             style={{ minHeight: 500 }}
             pagination="local" />
         }
-          
-          
       </GridContainer>      
     </Container>
   )

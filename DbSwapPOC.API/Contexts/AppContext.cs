@@ -22,7 +22,7 @@ namespace DbSwapPOC.API.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            switch (AppSettings.CurrentDatabase) {
+            switch (AppSettings.CurrentDatabaseType) {
                 case SupportedDatabases.SQL_SERVER:
                     optionsBuilder.UseSqlServer(configuration.GetConnectionString("SqlConnection"));
                     break;
@@ -34,5 +34,15 @@ namespace DbSwapPOC.API.Contexts
             }
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // modelBuilder.Entity<Employee>()
+            //     .ToTable("Employee");
+
+            // modelBuilder.Entity<Department>()
+            //     .ToTable("Department");
+                
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

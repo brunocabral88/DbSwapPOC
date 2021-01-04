@@ -11,7 +11,7 @@ import {
 } from './styles';
 import ErrorMessage from '../../components/ErrorMessage';
 import RefreshButton from '../../components/RefreshButton';
-import DbTypeContext from '../../contexts/DbTypeContext';
+import DbSettingsContext from '../../contexts/DbSettingsContext';
 
 const columns = [
   { name: 'businessEntityID', header: 'ID', defaultFlex: 1 },
@@ -28,7 +28,7 @@ const Employees = () => {
   const [employees, setEmployees] = useState([]);
   const [hasErrors, setHasErrors] = useState(false);
   const [loading, setLoading] = useState(true);
-  const { currentDbType } = useContext(DbTypeContext);
+  const { dbOptions } = useContext(DbSettingsContext);
 
   const loadEmployees = async () => {
     setLoading(true);
@@ -48,7 +48,7 @@ const Employees = () => {
 
   useEffect(() => {
     loadEmployees();
-  }, [currentDbType]);
+  }, [dbOptions]);
 
   useEffect(() => {
     loadEmployees();
