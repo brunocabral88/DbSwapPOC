@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DbSwapPOC.API.Models
 {
-    [Table("Department")]
+    // [Table("Department")]
     public class Department
     {
         [Key]
-        public Int16 DepartmentID { get; set; }
-        public string Name { get; set; }
-        public string GroupName { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public Int16 departmentid { get; set; }
+        public string name { get; set; }
+        public string groupname { get; set; }
+        public DateTime modifieddate { get; set; }
     }
 }

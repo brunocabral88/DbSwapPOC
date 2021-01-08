@@ -15,10 +15,10 @@ import { useContext } from 'react';
 import DbSettingsContext from '../../contexts/DbSettingsContext';
 
 const columns = [
-  { name: 'departmentID', header: 'ID', defaultFlex: 1 },
+  { name: 'departmentid', header: 'ID', defaultFlex: 1 },
   { name: 'name', header: 'Name', defaultFlex: 4 },
-  { name: 'groupName', header: 'Group', defaultFlex: 3 },
-  { name: 'modifiedDate', header: 'Modified', defaultFlex: 2 },
+  { name: 'groupname', header: 'Group', defaultFlex: 3 },
+  { name: 'modifieddate', header: 'Modified', defaultFlex: 2 },
 ];
 
 const Departments = () => {

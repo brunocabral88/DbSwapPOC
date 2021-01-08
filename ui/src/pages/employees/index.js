@@ -14,13 +14,13 @@ import RefreshButton from '../../components/RefreshButton';
 import DbSettingsContext from '../../contexts/DbSettingsContext';
 
 const columns = [
-  { name: 'businessEntityID', header: 'ID', defaultFlex: 1 },
-  { name: 'nationalIDNumber', header: 'Document ID', defaultFlex: 2 },
-  { name: 'loginID', header: 'Login', defaultFlex: 2 },
-  { name: 'jobTitle', header: 'Job Title', defaultFlex: 2 },
-  { name: 'birthDate', header: 'Birth Date', defaultFlex: 2 },
-  { name: 'maritalStatus', header: 'Marital Status', defaultFlex: 1 },
-  { name: 'hireDate', header: 'Hire Date', defaultFlex: 2 },
+  { name: 'businessentityid', header: 'ID', defaultFlex: 1 },
+  { name: 'nationalidnumber', header: 'Document ID', defaultFlex: 2 },
+  { name: 'loginid', header: 'Login', defaultFlex: 2 },
+  { name: 'jobtitle', header: 'Job Title', defaultFlex: 2 },
+  { name: 'birthdate', header: 'Birth Date', defaultFlex: 2 },
+  { name: 'maritalstatus', header: 'Marital Status', defaultFlex: 1 },
+  { name: 'hiredate', header: 'Hire Date', defaultFlex: 2 },
 ];
 
 const Employees = () => {
