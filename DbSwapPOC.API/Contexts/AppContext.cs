@@ -36,11 +36,16 @@ namespace DbSwapPOC.API.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // modelBuilder.Entity<Employee>()
-            //     .ToTable("Employee");
-
-            // modelBuilder.Entity<Department>()
-            //     .ToTable("Department");
+            // switch (AppSettings.CurrentDatabaseType) {
+            //     case SupportedDatabases.SQL_SERVER:
+            //         modelBuilder.HasDefaultSchema("dbo");
+            //         break;
+            //     case SupportedDatabases.POSTGRES:
+            //         modelBuilder.HasDefaultSchema("public");
+            //         break;
+            //     default:
+            //         break;
+            // }
                 
             base.OnModelCreating(modelBuilder);
         }

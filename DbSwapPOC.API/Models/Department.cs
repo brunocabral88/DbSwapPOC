@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DbSwapPOC.API.Models
 {
-    [Table("Department", Schema = "HumanResources")]
+    [Table("Department")]
     public class Department
     {
         [Key]
