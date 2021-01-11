@@ -53,18 +53,26 @@ const Login = ({ isRegistration }) => {
 
     setLoading(true);
 
-    const {success, errors} = isRegistration ? 
-      await AuthService.register(email, password) 
-      :
-      await AuthService.authenticate(email, password);
+    try {
+      const {success, errors} = isRegistration ? 
+        await AuthService.register(email, password) 
+        :
+        await AuthService.authenticate(email, password);
 
-    setLoading(false);
-    if (success) {
-      setLoggedIn(true);
-      return history.push('/departments');
+        if (success) {
+          setLoggedIn(true);
+          return history.push('/departments');
+        }
+    
+        setErrrors(errors);
+
+    } catch (e) {
+      setErrrors([{ description: 'Failed to connect to the server, please try again later'}]);
     }
 
-    setErrrors(errors);
+    
+
+    setLoading(false);
   }
 
   const toggleRegisterLoginPages = () => {
