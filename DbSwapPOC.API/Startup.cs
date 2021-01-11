@@ -15,6 +15,7 @@ using DbSwapPOC.API.Models;
 using DbSwapPOC.API.Services;
 using DbSwapPOC.API.Repositories;
 using DbSwapPOC.API.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace DbSwapPOC.API
 {
@@ -73,10 +74,17 @@ namespace DbSwapPOC.API
             });
 
             services.AddDbContext<Contexts.AppContext>();
+            services.AddDbContext<PgsqlIdentityContext>();
 
             services.AddTransient<AuthService>();
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IDepartmentRepository, DepartmentRepository>();
+
+            /* Run pending database schema changes */
+            var provider = services.BuildServiceProvider();
+            provider.GetService<Contexts.AppContext>().Database.Migrate();
+            provider.GetService<IdentityContext>().Database.Migrate();
+            provider.GetService<PgsqlIdentityContext>().Database.Migrate();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
