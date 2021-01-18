@@ -1,4 +1,5 @@
 using System;
+using DbSwapPOC.API.Factories;
 using DbSwapPOC.API.Models;
 using DbSwapPOC.API.Settings;
 using Microsoft.EntityFrameworkCore;
@@ -9,9 +10,11 @@ namespace DbSwapPOC.API.Contexts
     public class AppContext : DbContext
     {
         private readonly IConfiguration configuration;
+        private readonly IModelCreatorFactory modelCreatorFactory;
 
-        public AppContext(IConfiguration configuration)
+        public AppContext(IConfiguration configuration, IModelCreatorFactory modelCreatorFactory)
         {
+      this.modelCreatorFactory = modelCreatorFactory;
             this.configuration = configuration;
             
             /* Apply migrations on the fly for demo purposes, not valid for production */
@@ -36,19 +39,9 @@ namespace DbSwapPOC.API.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            switch (AppSettings.CurrentDatabaseType) {
-                case SupportedDatabases.SQL_SERVER:
-                    modelBuilder.Entity<Department>().ToTable("Department");
-                    modelBuilder.Entity<Employee>().ToTable("Employee");
-                    break;
-                case SupportedDatabases.POSTGRES:
-                    modelBuilder.HasDefaultSchema("public");
-                    modelBuilder.Entity<Department>().ToTable("department");
-                    modelBuilder.Entity<Employee>().ToTable("employee");
-                    break;
-                default:
-                    break;
-            }
+            var modelCreator = modelCreatorFactory.GetInstance(AppSettings.CurrentDatabaseType);
+            modelCreator.Configure(modelBuilder);
+
                 
             base.OnModelCreating(modelBuilder);
         }
