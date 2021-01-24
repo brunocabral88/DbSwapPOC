@@ -32,6 +32,10 @@ namespace DbSwapPOC.API.Contexts
                 case SupportedDatabases.POSTGRES:
                     optionsBuilder.UseNpgsql(configuration.GetConnectionString("PostgresConnection"));
                     break;
+                case SupportedDatabases.MYSQL:
+                    var mysqlConnectionString = configuration.GetConnectionString("MysqlConection");
+                    optionsBuilder.UseMySql(mysqlConnectionString, ServerVersion.AutoDetect(mysqlConnectionString));
+                    break;
                 default:
                     break;
             }

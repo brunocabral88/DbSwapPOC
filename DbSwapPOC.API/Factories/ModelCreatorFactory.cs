@@ -14,6 +14,8 @@ namespace DbSwapPOC.API.Factories
           return new SQLServerModelConfigurer();
         case SupportedDatabases.POSTGRES:
           return new PostgresModelConfigurer();
+        case SupportedDatabases.MYSQL:
+          return new MysqlModelConfigurer();
         default:
           throw new InvalidOperationException("Database type not found");
       }

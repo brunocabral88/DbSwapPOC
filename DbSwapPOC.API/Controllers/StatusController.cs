@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
+using MySqlConnector;
 
 namespace DbSwapPOC.API.Controllers
 {
@@ -47,6 +48,12 @@ namespace DbSwapPOC.API.Controllers
                     Settings.AppSettings.CurrentDatabaseType = Settings.SupportedDatabases.POSTGRES;
                     Settings.AppSettings.CurrentDatabaseServer = pgBuilder.Host;
                     Settings.AppSettings.CurrentDatabaseName = pgBuilder.Database;
+                    break;
+                case nameof(Settings.SupportedDatabases.MYSQL):
+                    var mysqlBuilder = new MySqlConnectionStringBuilder(configuration.GetConnectionString("MysqlConnection"));
+                    Settings.AppSettings.CurrentDatabaseType = Settings.SupportedDatabases.MYSQL;
+                    Settings.AppSettings.CurrentDatabaseServer = mysqlBuilder.Server;
+                    Settings.AppSettings.CurrentDatabaseName = mysqlBuilder.Database;
                     break;
                 default:
                     return StatusCode(400);

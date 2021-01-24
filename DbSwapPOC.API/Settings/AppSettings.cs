@@ -11,6 +11,7 @@ namespace DbSwapPOC.API.Settings
 
     public enum SupportedDatabases {
         SQL_SERVER,
-        POSTGRES
+        POSTGRES,
+        MYSQL
     }
 }
