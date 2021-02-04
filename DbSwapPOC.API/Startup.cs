@@ -75,7 +75,7 @@ namespace DbSwapPOC.API
             });
 
             services.AddDbContext<Contexts.AppContext>();
-            services.AddDbContext<PgsqlIdentityContext>();
+            services.AddDbContext<Contexts.MysqlIdentityContext>();
 
             services.AddTransient<AuthService>();
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
@@ -86,8 +86,7 @@ namespace DbSwapPOC.API
             var provider = services.BuildServiceProvider();
             provider.GetService<Contexts.AppContext>().Database.Migrate();
             provider.GetService<IdentityContext>().Database.Migrate();
-            provider.GetService<PgsqlIdentityContext>().Database.Migrate();
-
+            provider.GetService<MysqlIdentityContext>().Database.Migrate();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

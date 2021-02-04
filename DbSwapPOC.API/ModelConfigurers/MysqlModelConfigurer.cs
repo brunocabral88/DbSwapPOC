@@ -7,8 +7,8 @@ namespace DbSwapPOC.API.ModelConfigurers
   {
     public void Configure(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Department>().ToTable("department");
-        modelBuilder.Entity<Employee>().ToTable("employee");
+        modelBuilder.Entity<Department>().ToTable("Department");
+        modelBuilder.Entity<Employee>().ToTable("Employee");
     }
   }
 }

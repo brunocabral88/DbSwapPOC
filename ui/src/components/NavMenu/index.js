@@ -83,14 +83,8 @@ const NavMenu = () => {
             </NavDropdown.Item>
             <NavDropdown.Item 
               href="#" 
-              active={databaseType === 'POSTGRES'}
-              onClick={() => handleChangeDatabaseType('POSTGRES')}>
-                PostgreSQL
-            </NavDropdown.Item>
-            <NavDropdown.Item 
-              href="#" 
               active={databaseType === 'MySQL'}
-              onClick={() => handleChangeDatabaseType('Mysql')}>
+              onClick={() => handleChangeDatabaseType('MYSQL')}>
                 MySQL
             </NavDropdown.Item>
           </NavDropdown>

@@ -12,8 +12,6 @@ namespace DbSwapPOC.API.Factories
       {
         case SupportedDatabases.SQL_SERVER:
           return new SQLServerModelConfigurer();
-        case SupportedDatabases.POSTGRES:
-          return new PostgresModelConfigurer();
         case SupportedDatabases.MYSQL:
           return new MysqlModelConfigurer();
         default:

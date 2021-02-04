@@ -29,11 +29,8 @@ namespace DbSwapPOC.API.Contexts
                 case SupportedDatabases.SQL_SERVER:
                     optionsBuilder.UseSqlServer(configuration.GetConnectionString("SqlConnection"));
                     break;
-                case SupportedDatabases.POSTGRES:
-                    optionsBuilder.UseNpgsql(configuration.GetConnectionString("PostgresConnection"));
-                    break;
                 case SupportedDatabases.MYSQL:
-                    var mysqlConnectionString = configuration.GetConnectionString("MysqlConection");
+                    var mysqlConnectionString = configuration.GetConnectionString("MysqlConnection");
                     optionsBuilder.UseMySql(mysqlConnectionString, ServerVersion.AutoDetect(mysqlConnectionString));
                     break;
                 default:
@@ -45,8 +42,7 @@ namespace DbSwapPOC.API.Contexts
         {
             var modelCreator = modelCreatorFactory.GetInstance(AppSettings.CurrentDatabaseType);
             modelCreator.Configure(modelBuilder);
-
-                
+     
             base.OnModelCreating(modelBuilder);
         }
     }

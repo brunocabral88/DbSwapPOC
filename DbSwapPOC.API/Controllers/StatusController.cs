@@ -42,13 +42,6 @@ namespace DbSwapPOC.API.Controllers
                     Settings.AppSettings.CurrentDatabaseServer = sqlBuilder.DataSource;
                     Settings.AppSettings.CurrentDatabaseName = sqlBuilder.InitialCatalog;
                     break;
-
-                case nameof(Settings.SupportedDatabases.POSTGRES):
-                    var pgBuilder = new NpgsqlConnectionStringBuilder(configuration.GetConnectionString("PostgresConnection"));
-                    Settings.AppSettings.CurrentDatabaseType = Settings.SupportedDatabases.POSTGRES;
-                    Settings.AppSettings.CurrentDatabaseServer = pgBuilder.Host;
-                    Settings.AppSettings.CurrentDatabaseName = pgBuilder.Database;
-                    break;
                 case nameof(Settings.SupportedDatabases.MYSQL):
                     var mysqlBuilder = new MySqlConnectionStringBuilder(configuration.GetConnectionString("MysqlConnection"));
                     Settings.AppSettings.CurrentDatabaseType = Settings.SupportedDatabases.MYSQL;
